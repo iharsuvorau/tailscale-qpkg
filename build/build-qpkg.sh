@@ -10,7 +10,7 @@ cp out/tailscaled-amd64 /Tailscale/x86_64/tailscaled
 cp out/tailscale-amd64 /Tailscale/x86_64/tailscale
 # arm32
 cp out/tailscale-arm /Tailscale/arm-x41/tailscale
-cp out/tailscaled-arm /Tailscale/arm-x41/tailscale
+cp out/tailscaled-arm /Tailscale/arm-x41/tailscaled
 
 cp out/tailscaled-arm64 /Tailscale/arm_64/tailscaled
 cp out/tailscale-arm64 /Tailscale/arm_64/tailscale
@@ -18,7 +18,7 @@ cp out/tailscale-arm64 /Tailscale/arm_64/tailscale
 mkdir -p /Tailscale/shared/var/run/tailscale
 mkdir -p /Tailscale/shared/var/lib/tailscale
 
-sed -i '/#QPKG_REQUIRE/cQPKG_REQUIRE="QVPN"' /Tailscale/qpkg.cfg 
+sed -i '/#QPKG_REQUIRE/cQPKG_REQUIRE="QVPN"' /Tailscale/qpkg.cfg
 
 sed -i '/: ADD START ACTIONS HERE/c\
     $QPKG_ROOT/tailscaled --port 41641 --state=$QPKG_ROOT/var/lib/tailscale/tailscaled.state --socket=$QPKG_ROOT/var/run/tailscale/tailscaled.sock 2> /dev/null &\
@@ -35,6 +35,7 @@ sed -i '/: ADD STOP ACTIONS HERE/c\
 qbuild --root /Tailscale --build-arch x86 --build-dir /out/pkg
 qbuild --root /Tailscale --build-arch x86_64 --build-dir /out/pkg
 qbuild --root /Tailscale --build-arch arm-x41 --build-dir /out/pkg
+qbuild --root /Tailscale --build-arch arm-x19 --build-dir /out/pkg
 qbuild --root /Tailscale --build-arch arm_64 --build-dir /out/pkg
 
 chmod -R 777 /out
